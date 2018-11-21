@@ -12,26 +12,35 @@ namespace task_14
         {
             Random r = new Random();
 
-            long N = r.Next(100, 100000);
-
-            for (int i = 25; i <= N; i++)
+            long N = 70000;
+            long i = 0;
+            while(i<N)
             {
-                if (i * i <= N)
+                    long temp=i*i;
+                    long res=0;
+                int cout = 0;
+                long temp_i = i;
+                while (temp_i > 0)
                 {
-                    var temp=i*i;
-                    var res=0;
-                    while(temp>0)
-                    {
-                        res =res+temp % 10;
-                        if (res == i)
-                        {
-                            Console.Write(i + ", ");
-                            break;
-                        }
-                        temp = temp / 10;
-                        res = res * 10;
-                    }
+                    temp_i = temp_i / 10;
+                    cout++;
                 }
+                        while (cout>0)
+                        {
+                            res = res * 10;
+                            res = res + temp % 10;
+                            temp = temp / 10;
+                        cout--;
+                        }
+                        temp = 0;
+                while (temp < i && i % 10 != 0)
+                            {
+                                temp = temp * 10;
+                                temp = temp + res % 10;
+                                res = res / 10;
+                            }
+                if (temp == i && i % 10 != 0) Console.Write(i + " ");
+                    i++; 
             }
             Console.WriteLine();
             Console.WriteLine($"Данные числа в диапозоне от 1 до {N} являются автоморфными");
