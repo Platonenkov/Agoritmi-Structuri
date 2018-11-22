@@ -6,7 +6,18 @@ namespace Lesson_2
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+
+            int N = 2;
+            int temp = 0;
+            int system = 2;
+
+            while (N > 0)
+            {
+                temp = temp + N % system;
+                N = N / 10;
+
+            }
+            Console.Write(temp);
         }
     }
 }
