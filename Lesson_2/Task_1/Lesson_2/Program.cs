@@ -36,6 +36,7 @@ namespace Lesson_2
             char[] s = stroka.ToCharArray();
             if (s.Length < 4)
             {
+                stroka = string.Empty;
                 int temp = 4 - s.Length;
                 while (temp > 0)
                 {
