@@ -84,12 +84,11 @@ namespace Task
         /// </summary>
         /// <param name="a">число 1</param>
         /// <param name="b">число 2</param>
-        static void Swap(ref int a, ref int b, ref long count)
+        static void Swap(ref int a, ref int b)
         {
             int t = a;
             a = b;
             b = t;
-            count++;
         }
 
         /// <summary>
@@ -104,7 +103,7 @@ namespace Task
             {
                 for(int j = 0; j < m.Length - 1; j++)
                 {
-                    if (m[j] > m[j + 1]) Swap(ref m[j], ref m[j + 1],ref count_1);
+                    if (m[j] > m[j + 1]) { Swap(ref m[j], ref m[j + 1]); count_1++; }
                 }
             }
             timer_1 = (DateTime.Now - date_start).TotalMilliseconds;
@@ -123,6 +122,7 @@ namespace Task
 
             while(i_left<i_right)
             {
+                count_2++;
                 Go_right(m, i_left,i_right);
                 i_right--;
                 Go_left(m, i_left, i_right);
@@ -141,7 +141,7 @@ namespace Task
         {
             for (int j = end; j > start; j--)
             {
-                if (m[j] < m[j - 1]) { Swap(ref m[j], ref m[j - 1], ref count_2); }
+                if (m[j] < m[j - 1]) { Swap(ref m[j], ref m[j - 1]); }
             }
         }
 
@@ -155,7 +155,7 @@ namespace Task
         {
             for (int j = start; j < end; j++)
             {
-                if (m[j] > m[j + 1]) { Swap(ref m[j], ref m[j + 1],ref count_2); }
+                if (m[j] > m[j + 1]) { Swap(ref m[j], ref m[j + 1]); }
             }
         }
 
@@ -169,11 +169,12 @@ namespace Task
             count_3 = 0;
             for (int i = 0; i < m.Length; i++)
             {
+                count_3++;
                 int temp = m[i];
                 int j = i;
                 while(j>0&& m[j - 1] > temp)
                 {
-                    Swap(ref m[j], ref m[j - 1], ref count_3);
+                    Swap(ref m[j], ref m[j - 1]);
                     j--;
                 }
             }
@@ -193,9 +194,18 @@ namespace Task
 
         static void PritnResalt(long a)
         {
-            Console.WriteLine($"Сортировка Пузырьком\nАсимптотическая: {a * a}\nТочная:{a*a-a}\nФактическая{count_1}");
-            Console.WriteLine($"Сортировка Шейкерная\nАсимптотическая: {a * a}\nТочная:{a * a - a}\nФактическая{count_2}");
-            Console.WriteLine($"Сортировка Вставками\nАсимптотическая: {a * a}\nТочная:{a * a - a}\nФактическая{count_3}");
+            Console.WriteLine("==========================================================================");
+            Console.WriteLine($"|                       Сортировка Пузырьком                             |" +
+                $"\n| Асимптотическая: {a * a, 10} Точная:{a*a-a, 10} Фактическая{count_1, 10}    |" +
+                $"\n| Затраченное время:{timer_1, 10}                                           |");
+            Console.WriteLine($"|                       Сортировка Шейкерная                             |" +
+                $"\n| Асимптотическая: {a * a,10} Точная:{(a * a + a)/2,10} Фактическая{count_2,10}    |" +
+                $"\n| Затраченное время:{timer_2,10}                                           |");
+            Console.WriteLine($"|                       Сортировка Вставками                             |" +
+                $"\n| Асимптотическая: {a * a,10} Точная:{(a * a - a)/2,10} Фактическая{count_3,10}    |" +
+                $"\n| Затраченное время:{timer_3,10}                                           |");
+            Console.WriteLine("==========================================================================");
+            Console.WriteLine("\n\n");
         }
 
     }
