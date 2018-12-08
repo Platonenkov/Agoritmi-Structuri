@@ -17,7 +17,7 @@ namespace Task_2
 
         static void Main(string[] args)
         {
-            stroka = "[2*{5*(4+7)}]";
+            stroka = "[2+{5*(4+7)}]";
             int rez;
             bool Proverka = Check(stroka);
             if (Proverka == true)
