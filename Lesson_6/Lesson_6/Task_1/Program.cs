@@ -31,18 +31,18 @@ namespace Task_1
                 temp[i++] = (int)item;
                 
             }
-            //for (int j = 0; j<temp.Length; j++)
-            //{
-            //    if (hashString.Length == count) break;
-            //    if (j < count && j % 2 == 0) { hashString = hashString + (char)Math.Abs(temp[j] / (j + 1)); j++; }
-            //    if (hashString.Length<count) { hashString = hashString + (char)Math.Abs(temp[j/2] / (j + 1)); j++; }
-
-            //}
-
-            while (hashString.Length < count)
+            for (int j = 0; j < temp.Length; j++)
             {
-                hashString = hashString + (char)(temp[r.Next(0, temp.Length - 1)]*2);
+                if (hashString.Length == count) break;
+                if (j < count && j % 2 == 0) { hashString = hashString + (char)Math.Abs(temp[j] / (j + 1)); }
+                if (hashString.Length < count) { hashString = hashString + (char)Math.Abs(temp[j / 2]);}
+
             }
+
+            //while (hashString.Length < count)
+            //{
+            //    hashString = hashString + (char)(temp[r.Next(0, temp.Length - 1)]*2);
+            //}
 
 
         }
