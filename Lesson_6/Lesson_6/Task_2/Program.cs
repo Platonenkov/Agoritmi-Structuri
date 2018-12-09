@@ -114,5 +114,31 @@ namespace Task_2
                 }
             }
         }
+
+        /// <summary>
+        /// Ищет число в дереве
+        /// </summary>
+        /// <param name="data">число</param>
+        private bool BinaryFinde(long data, BinaryTree node)
+        {
+
+            if (node.Data == data)
+            {
+
+                return true;
+            }
+            if (node.Data > data)
+            {
+                if (node.Left == null) node.Left = new BinaryTree();
+                Insert(data, node.Left, node);
+            }
+            else
+            {
+                if (node.Right == null) node.Right = new BinaryTree();
+                Insert(data, node.Right, node);
+            }
+            return false;
+        }
+
     }
 }
