@@ -10,6 +10,7 @@ namespace Task_2
     {
         static void Main(string[] args)
         {
+            var finde = 33;
             var tree = new BinaryTree();
             tree.Insert(20);
             tree.Insert(40);
@@ -20,6 +21,12 @@ namespace Task_2
             tree.Insert(31);
             tree.Insert(32);
             tree.Insert(70);
+            tree.Insert(33);
+
+            Console.WriteLine("Поиск числа {0} в дереве", finde);
+            if (BinaryTree.BinaryFinde(finde, tree)) Console.WriteLine("число найдено");
+            else Console.WriteLine("Число не найдено");
+
             BinaryTree.Print(tree);
         }
 
@@ -119,25 +126,25 @@ namespace Task_2
         /// Ищет число в дереве
         /// </summary>
         /// <param name="data">число</param>
-        private bool BinaryFinde(long data, BinaryTree node)
+        public static bool BinaryFinde(long data, BinaryTree node)
         {
 
             if (node.Data == data)
             {
-
                 return true;
             }
             if (node.Data > data)
             {
-                if (node.Left == null) node.Left = new BinaryTree();
-                Insert(data, node.Left, node);
+                if (node.Left == null) return false;
+                if(BinaryFinde(data, node.Left)) return true;
+                return false;
             }
             else
             {
-                if (node.Right == null) node.Right = new BinaryTree();
-                Insert(data, node.Right, node);
+                if (node.Right == null) return false;
+                if (BinaryFinde(data, node.Right)) return true;
+                return false;
             }
-            return false;
         }
 
     }
