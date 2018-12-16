@@ -34,7 +34,7 @@ namespace Task_1
         {
             Start();
 
-            //Sort_by_Counting(mass_1);
+            Sort_by_Counting(mass_1);
 
             //Quick_sort(mass_1);
 
