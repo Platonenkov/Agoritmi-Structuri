@@ -36,7 +36,9 @@ namespace Task_1
 
             //Sort_by_Counting(mass_1);
 
-            Quick_sort(mass_1);
+            //Quick_sort(mass_1);
+
+            //Console.WriteLine(string.Join(" ", Sort_by_Sliyanie(mass_1)));
 
             Console.ReadKey();
         }
@@ -95,11 +97,15 @@ namespace Task_1
             }
         }
 
+        /// <summary>
+        /// Быстрая сортировка
+        /// </summary>
+        /// <param name="mass">массив данных</param>
         public static void Quick_sort(int[] mass)
         {
             int[] temp = new int[mass.Length];
             Array.Copy(mass, temp, mass.Length);
-            temp = Quick_sort(mass, mass[0], mass[mass.Length-1]);
+            temp = Quick_sort(mass, 0, mass.Length-1);
 
             foreach (var item in temp)
             {
@@ -108,20 +114,77 @@ namespace Task_1
 
         }
 
-        public static int[] Quick_sort(int[] mass, int v1, int v2)
+
+        /// <summary>
+        /// Сортировка Хоара
+        /// </summary>
+        /// <param name="mass">массив данных</param>
+        /// <param name="first">индекс первого значения</param>
+        /// <param name="last">индекс последнего значения</param>
+        /// <returns></returns>
+        public static int[] Quick_sort(int[] mass, int first, int last)
         {
-            int flag = mass.Length / 2;
-            for (int i = v1; i <= flag; i++)
+            int i = first, j = last, x = mass[(first + last) / 2];
+
+            do
             {
-                if (mass[i] >= mass[flag]) Swap(ref mass[i], ref mass[flag]);
-            }
-            for (int i = flag+1; i < v2; i++)
-            {
-                if (mass[i]<mass[flag]) Swap(ref mass[i], ref mass[flag]);
-            }
-            Quick_sort(mass, v1, flag - 1);
-            Quick_sort(mass, flag + 1, v2);
+                while (mass[i] < x)
+                    i++;
+                while (mass[j] > x)
+                    j--;
+                if (i <= j)
+                {
+                    if (mass[i] > mass[j])
+                    {
+                        Swap(ref mass[i], ref mass[j]);
+                    }
+                    i++;
+                    j--;
+                }
+            } while (i <= j);
+            if (i < last)
+                Quick_sort(mass, i, last);
+            if (first < j)
+                Quick_sort(mass, first, j);
             return mass;
+        }
+
+        /// <summary>
+        /// Сортировка слиянием
+        /// </summary>
+        /// <param name="mass">массив для сортировки</param>
+        /// <returns>отсортированный массив</returns>
+        public static int[] Sort_by_Sliyanie(int[] mass)
+        {
+            if (mass.Length == 1)
+                return mass;
+            int mid_point = mass.Length / 2;
+            return merge(Sort_by_Sliyanie(mass.Take(mid_point).ToArray()), Sort_by_Sliyanie(mass.Skip(mid_point).ToArray()));
+        }
+        /// <summary>
+        /// Слияние двух массивов
+        /// </summary>
+        /// <param name="mass1">массив 1</param>
+        /// <param name="mass2">массив 2</param>
+        /// <returns>объединенный массив</returns>
+        public static int[] merge(int[] mass1, int[] mass2)
+        {
+            int a = 0, b = 0;
+            int[] merged = new int[mass1.Length + mass2.Length];
+            for (int i = 0; i < mass1.Length + mass2.Length; i++)
+            {
+                if (b < mass2.Length && a < mass1.Length)
+                    if (mass1[a] > mass2[b] && b < mass2.Length)
+                        merged[i] = mass2[b++];
+                    else
+                        merged[i] = mass1[a++];
+                else
+                    if (b < mass2.Length)
+                    merged[i] = mass2[b++];
+                else
+                    merged[i] = mass1[a++];
+            }
+            return merged;
         }
 
         /// <summary>
